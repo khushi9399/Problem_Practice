@@ -1,0 +1,11 @@
+package com.info.repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.info.entity.Event;
+
+public class EventRepository {
+
+	private List<Event> event = new ArrayList<>();
+}

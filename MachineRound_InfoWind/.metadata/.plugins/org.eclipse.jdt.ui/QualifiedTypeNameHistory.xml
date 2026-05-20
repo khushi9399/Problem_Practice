@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="com.info.repository.EventRepository"/>
+    <fullyQualifiedTypeName name="com.info.service.EventService"/>
+    <fullyQualifiedTypeName name="java.time.LocalTime"/>
+    <fullyQualifiedTypeName name="com.info.exception.DuplicateEventException"/>
+    <fullyQualifiedTypeName name="com.info.exception.InvalidEventException"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="com.info.entity.Event"/>
+    <fullyQualifiedTypeName name="com.info.exception.EventNotFoundException"/>
+    <fullyQualifiedTypeName name="java.lang.ArithmeticException"/>
+    <fullyQualifiedTypeName name="com.info.exception.InvalidBookException"/>
+    <fullyQualifiedTypeName name="java.time.Year"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.library.Library"/>
+    <fullyQualifiedTypeName name="com.library.repo.BookRepository"/>
+    <fullyQualifiedTypeName name="com.library.service.BookService"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="com.library.entity.Book"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.library.exception.DuplicateBookException"/>
+    <fullyQualifiedTypeName name="com.library.exception.InvalidBookException"/>
+    <fullyQualifiedTypeName name="com.library.exception.BookNotFoundException"/>
+</qualifiedTypeNameHistroy>

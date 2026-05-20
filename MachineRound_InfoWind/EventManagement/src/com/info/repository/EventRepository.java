@@ -1,0 +1,42 @@
+package com.info.repository;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.info.entity.Event;
+
+public class EventRepository {
+
+	private List<Event> events = new ArrayList<>();
+	
+	public void save(Event event) {
+		events.add(event);
+	}
+
+	public List<Event> findAll(){
+		return events;
+	}
+	
+	public List<Event> findByDate(LocalDate date) {
+		List<Event> result = new ArrayList<>();
+		for(Event e : events) {
+			if(e.getDate().equals(date))
+				result.add(e);
+		}
+		return result;
+	}
+	
+	public Event findByTitle(String title) {
+		for(Event e : events) {
+			if(e.getTitle().equalsIgnoreCase(title))
+				return e;
+		}
+		return null;
+	}
+	
+	public void delete(Event event) {
+		events.remove(event);
+	}
+		
+}

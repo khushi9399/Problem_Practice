@@ -1,0 +1,14 @@
+package com.library.controller;
+
+import java.util.Scanner;
+
+import com.library.service.BookService;
+
+public class Main {
+
+	public static void main(String args[]) {
+		
+		Scanner sc = new Scanner(System.in);
+		private BookService bookService = new BookService();
+	}
+}

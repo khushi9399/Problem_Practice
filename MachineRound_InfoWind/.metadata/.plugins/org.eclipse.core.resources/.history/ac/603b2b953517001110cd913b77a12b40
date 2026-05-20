@@ -1,0 +1,44 @@
+package com.calculator;
+
+import java.util.Scanner;
+
+public class CalculatorApp{
+
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		Calculator calculator = new SimpleCalculator();
+		
+		while(true) {
+			try {
+				System.out.println("\n-----------------Calculator------------------");
+				
+				System.out.println("1.Add");
+				System.out.println("2.Subtract");
+				System.out.println("3.Multiply");
+				System.out.println("4.Divide");
+				System.out.println("5. Exit");
+				
+				System.out.println("Enter Choice");
+				int choice = sc.nextInt();
+				
+				if(choice == 5) {
+					System.out.println("Exiting....");
+					break;
+				}
+				
+				System.out.println("Enter first number");
+				double num1 = sc.nextDouble();
+				
+				System.out.println("Enter second number");
+				double num2 = sc.nextDouble();
+			}
+			catch(Exception e) {
+				
+			}
+		}
+		
+		public void add(double a, double b){
+			return 
+		}
+	}
+}

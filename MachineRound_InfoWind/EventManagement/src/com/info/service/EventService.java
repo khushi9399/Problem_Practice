@@ -1,0 +1,42 @@
+package com.info.service;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.info.entity.Event;
+import com.info.exception.DuplicateEventException;
+import com.info.exception.EventNotFoundException;
+import com.info.repository.EventRepository;
+
+public class EventService {
+
+	private EventRepository repository = new EventRepository();
+	
+	public void addEvent(Event event) {
+		
+		List<Event> l = new ArrayList<>();
+		for(Event e : l) {
+			if(e.getDate().equals(event.getDate()) && e.getStartTime().equals(event.getStartTime())) {
+				throw new DuplicateEventException("Date is already exists");
+			}
+		}
+		repository.save(event);
+	}
+	
+	public List<Event> getAllEvents(){
+		return repository.findAll();
+	}
+	
+	public List<Event> getEventsByDate(LocalDate date){
+		return repository.findByDate(date);
+	}
+	
+	public void deleteEvent(String title) {
+		Event event = repository.findByTitle(title);
+		if(event == null) {
+			throw new EventNotFoundException("Event not found");
+		}
+		repository.delete(event);
+	}
+}

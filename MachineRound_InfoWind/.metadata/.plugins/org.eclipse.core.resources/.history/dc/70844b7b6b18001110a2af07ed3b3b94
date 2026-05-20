@@ -1,0 +1,152 @@
+package com.info.controller;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Scanner;
+
+import com.info.entity.Booking;
+import com.info.exception.BookingConflictException;
+import com.info.exception.BookingNotFoundException;
+import com.info.exception.InvalidBookingException;
+import com.info.service.BookingService;
+
+public class Main {
+
+	public static void main(String args[]) {
+
+		Scanner sc = new Scanner(System.in);
+		BookingService service = new BookingService();
+
+		while (true) {
+
+			try {
+
+				System.out.println("\n===== Meeting Room Booking System =====");
+				System.out.println("1. Add Booking");
+				System.out.println("2. View All Bookings");
+				System.out.println("3. View Booking By Date");
+				System.out.println("4. View Booking By Room");
+				System.out.println("5. Cancel Booking");
+				System.out.println("6. Exit");
+
+				System.out.print("Choose Option: ");
+				int choice = Integer.parseInt(sc.nextLine());
+
+				switch (choice) {
+
+				case 1:
+
+					System.out.print("Meeting Title: ");
+					String title = sc.nextLine();
+
+					System.out.print("Room Number: ");
+					String room = sc.nextLine();
+
+					System.out.print("Booking Date (YYYY-MM-DD): ");
+					LocalDate date = LocalDate.parse(sc.nextLine());
+
+					System.out.print("Start Time (HH:MM): ");
+					LocalTime start = LocalTime.parse(sc.nextLine());
+
+					System.out.print("End Time (HH:MM): ");
+					LocalTime end = LocalTime.parse(sc.nextLine());
+
+					System.out.print("Organizer Name: ");
+					String organizer = sc.nextLine();
+
+					System.out.print("Description: ");
+					String desc = sc.nextLine();
+
+					Booking booking = new Booking(title, room, date, start, end, organizer, desc);
+
+					service.addBooking(booking);
+
+					System.out.println("Booking Added Successfully!");
+
+					break;
+
+				case 2:
+
+					List<Booking> allBookings = service.getAllBookings();
+
+					if (allBookings.isEmpty()) {
+						System.out.println("No Bookings Found");
+					} else {
+						for (Booking b : allBookings) {
+							System.out.println(b);
+						}
+					}
+
+					break;
+
+				case 3:
+
+					System.out.print("Enter Date (YYYY-MM-DD): ");
+					LocalDate searchDate = LocalDate.parse(sc.nextLine());
+
+					List<Booking> bookingsByDate = service.getBookingsByDate(searchDate);
+
+					if (bookingsByDate.isEmpty()) {
+						System.out.println("No bookings found on this date");
+					} else {
+						for (Booking b : bookingsByDate) {
+							System.out.println(b);
+						}
+					}
+
+					break;
+
+				case 4:
+
+					System.out.print("Enter Room Number: ");
+					String roomNumber = sc.nextLine();
+
+					List<Booking> bookingsByRoom = service.getBookingsByRoom(roomNumber);
+
+					if (bookingsByRoom.isEmpty()) {
+						System.out.println("No bookings found for this room");
+					} else {
+						for (Booking b : bookingsByRoom) {
+							System.out.println(b);
+						}
+					}
+
+					break;
+
+				case 5:
+
+					System.out.print("Enter Booking ID to cancel: ");
+					int id = Integer.parseInt(sc.nextLine());
+
+					service.cancelBooking(id);
+
+					System.out.println("Booking Cancelled Successfully");
+
+					break;
+
+				case 6:
+
+					System.out.println("Exiting Application...");
+					System.exit(0);
+					break;
+
+				default:
+					System.out.println("Invalid Choice");
+
+				}
+
+			}
+
+			catch (DuplicateBookingException | BookingNotFoundException | InvalidBookingException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+
+			catch (Exception e) {
+				System.out.println("Error: Invalid Input");
+			}
+
+		}
+
+	}
+}

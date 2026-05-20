@@ -1,0 +1,29 @@
+package com.library.controller;
+
+import java.util.Scanner;
+
+import com.library.service.BookService;
+
+public class Main {
+
+	public static void main(String args[]) {
+		
+		Scanner sc = new Scanner(System.in);
+		private BookService service = new BookService();
+		
+		while(true) {
+			try {
+				System.out.println("\n-----------Library Management-----------");
+				System.out.println("1. Add Book");
+//				System.out.println("\n-----------Library Management-----------");
+//				System.out.println("\n-----------Library Management-----------");
+//				System.out.println("\n-----------Library Management-----------");
+//				System.out.println("\n-----------Library Management-----------");
+				
+			}
+			catch(Exception e) {
+				
+			}
+		}
+	}
+}

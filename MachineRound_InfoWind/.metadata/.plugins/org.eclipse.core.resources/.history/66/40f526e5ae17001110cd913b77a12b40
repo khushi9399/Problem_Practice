@@ -1,0 +1,8 @@
+package com.info.exception;
+
+public class InvalidBookException {
+
+	public InvalidBookException(String message){
+		super(message);
+	}
+}

@@ -1,0 +1,59 @@
+package com.library.controller;
+
+import java.util.Scanner;
+
+import com.library.entity.Book;
+import com.library.service.BookService;
+
+public class Main {
+
+	public static void main(String args[]) {
+		
+		Scanner sc = new Scanner(System.in);
+	    BookService service = new BookService();
+		
+		while(true) {
+			try {
+				System.out.println("\n-----------Library Management-----------");
+				System.out.println("1. Add Book");
+//				System.out.println("\n-----------Library Management-----------");
+//				System.out.println("\n-----------Library Management-----------");
+//				System.out.println("\n-----------Library Management-----------");
+//				System.out.println("\n-----------Library Management-----------");
+				
+				System.out.println("Enter Your Choice");
+				int choice = Integer.parseInt(sc.nextLine());
+				
+				switch(choice) {
+				
+				case 1:
+					System.out.println("Title:");
+					String title = sc.nextLine();
+					
+					System.out.print("Author: ");
+                    String author = sc.nextLine();
+
+                    System.out.print("ISBN: ");
+                    String isbn = sc.nextLine();
+                    
+                    System.out.println("Publication Year");
+                    int year = Integer.parseInt(sc.nextLine());
+                    
+
+                    System.out.print("Available Copies: ");
+                    int copies = Integer.parseInt(sc.nextLine());
+                    
+                    service.addBook(new Book(title,author,isbn,year,copies));
+                    System.out.println("Book added successfully");
+                    break;
+                    
+                   default :
+                	   System.out.println("Invalid Choice");
+				}
+			}
+			catch(Exception e) {
+				
+			}
+		}
+	}
+}

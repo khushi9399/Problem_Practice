@@ -1,0 +1,8 @@
+package com.library.service;
+
+import com.library.repo.BookRepository;
+
+public class BookService {
+
+	BookRepository repository = new BookRepository();
+}

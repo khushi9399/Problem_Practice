@@ -1,0 +1,95 @@
+package com.info.service;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.List;
+
+import com.info.entity.Booking;
+import com.info.exception.BookingConflictException;
+import com.info.exception.BookingNotFoundException;
+import com.info.exception.InvalidBookingException;
+import com.info.repository.BookingRepository;
+
+public class BookingService {
+
+	private BookingRepository repository = new BookingRepository();
+
+	public void addBooking(Booking booking) {
+
+		validateBooking(booking);
+		checkOverlap(booking);
+
+		repository.save(booking);
+	}
+
+	public List<Booking> getAllBookings() {
+		return repository.findAll();
+	}
+
+	public List<Booking> getBookingsByDate(LocalDate date) {
+		return repository.findByDate(date);
+	}
+
+	public List<Booking> getBookingsByRoom(String room) {
+		return repository.findByRoom(room);
+	}
+
+	public void cancelBooking(int id) {
+
+		Booking booking = repository.findById(id);
+
+		if (booking == null) {
+			throw new BookingNotFoundException("Booking not found");
+		}
+
+		repository.delete(booking);
+	}
+
+	private void validateBooking(Booking booking) {
+
+		if (booking.getMeetingTitle() == null || booking.getMeetingTitle().isEmpty()) {
+			throw new InvalidBookingException("Meeting title cannot be empty");
+		}
+
+		if (booking.getRoomNumber() == null) {
+			throw new InvalidBookingException("Room number cannot be null");
+		}
+
+		if (booking.getBookingDate().isBefore(LocalDate.now())) {
+			throw new InvalidBookingException("Booking date cannot be in the past");
+		}
+
+		if (!booking.getStartTime().isBefore(booking.getEndTime())) {
+			throw new InvalidBookingException("Start time must be before end time");
+		}
+
+		long duration = Duration.between(booking.getStartTime(), booking.getEndTime()).toMinutes();
+
+		if (duration < 30) {
+			throw new InvalidBookingException("Meeting must be at least 30 minutes");
+		}
+
+		if (booking.getOrganizerName() == null || booking.getOrganizerName().isEmpty()) {
+			throw new InvalidBookingException("Organizer name cannot be empty");
+		}
+	}
+
+	private void checkOverlap(Booking newBooking) {
+
+		List<Booking> bookings = repository.findAll();
+
+		for (Booking b : bookings) {
+
+			boolean sameRoom = b.getRoomNumber().equalsIgnoreCase(newBooking.getRoomNumber());
+			boolean sameDate = b.getBookingDate().equals(newBooking.getBookingDate());
+
+			boolean overlap =
+					newBooking.getStartTime().isBefore(b.getEndTime()) &&
+					newBooking.getEndTime().isAfter(b.getStartTime());
+
+			if (sameRoom && sameDate && overlap) {
+				throw new BookingConflictException("Room already booked for this time slot");
+			}
+		}
+	}
+}

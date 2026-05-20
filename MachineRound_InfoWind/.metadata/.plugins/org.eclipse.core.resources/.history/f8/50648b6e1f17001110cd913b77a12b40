@@ -1,0 +1,53 @@
+package com.info.controller;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Scanner;
+
+import com.info.exception.DuplicateEventException;
+import com.info.exception.EventNotFoundException;
+import com.info.exception.InvalidEventException;
+import com.info.service.EventService;
+
+public class Main {
+	
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+	    EventService service = new EventService();
+     
+		while(true) {
+			try {
+				System.out.print("\n1. Add Event");
+				System.out.println("5. Exit");
+				System.out.println("Chhose Option :");
+				int choice = Integer.parseInt(sc.nextLine());
+				
+				switch(choice) {
+				
+				case 1 : 
+					System.out.print("Title : ");
+					String title = sc.nextLine();
+					
+					System.out.print("Date (YY-MM-DD) :");
+					LocalDate date = LocalDate.parse(sc.nextLine());
+					
+					System.out.println("Start Time(HH-MM) :");
+					LocalTime start = LocalTime.parse(sc.nextLine());
+					
+					System.out.print("End Time(HH-MM)");
+					LocalTime end = LocalTime.parse(sc.nextLine());
+					
+					System.out.print("Description :");
+					String desc = sc.nextLine();
+				}
+			}
+			catch(DuplicateEventException | EventNotFoundException | InvalidEventException e) {
+				System.out.println("Error :" + e.getMessage());
+			}
+			catch(Exception e) {
+				System.out.println("Error : Invalid input");
+			}
+			
+		}
+	}
+}
